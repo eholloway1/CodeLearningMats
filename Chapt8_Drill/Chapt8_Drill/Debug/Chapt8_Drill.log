@@ -1,0 +1,7 @@
+﻿  calculator08buggy.cpp
+C:\Users\jumpi\Desktop\CodeLearningMats\Chapt8_Drill\Chapt8_Drill\calculator08buggy.cpp(393,8): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\jumpi\Desktop\CodeLearningMats\Chapt8_Drill\Chapt8_Drill\calculator08buggy.cpp(421,10): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\jumpi\Desktop\CodeLearningMats\Chapt8_Drill\Chapt8_Drill\calculator08buggy.cpp(281): warning C4715: 'Symbol_table::get_value': not all control paths return a value
+C:\Users\jumpi\Desktop\CodeLearningMats\Chapt8_Drill\Chapt8_Drill\calculator08buggy.cpp(234): warning C4715: 'Token_stream::get': not all control paths return a value
+C:\Users\jumpi\Desktop\CodeLearningMats\Chapt8_Drill\Chapt8_Drill\calculator08buggy.cpp(345): warning C4715: 'primary': not all control paths return a value
+  Chapt8_Drill.vcxproj -> C:\Users\jumpi\Desktop\CodeLearningMats\Chapt8_Drill\Debug\Chapt8_Drill.exe
