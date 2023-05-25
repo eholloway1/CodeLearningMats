@@ -13,20 +13,41 @@ public:
 	void read_ages();
 	void print();
 	void sort();
+	vector<string> get_name() const {return name;}
+	vector<double> get_age() const {return age;}
 private:
 	vector<string> name;
 	vector<double> age;
 };
 
+ostream& operator<<(ostream& os, const Name_pairs& in) {
+	const vector<string> in_names = in.get_name();
+	const vector<double> in_age = in.get_age();
+	os << "names: ";
+
+	for (int i = 0; i < in_names.size(); i++) {
+		os << in_names[i] << " ";
+	}
+
+	os << '\n';
+	os << "ages: ";
+
+	for (int i = 0; i < in_age.size(); i++) {
+		os << in_age[i] << " ";
+	}
+
+	os << '\n';
+	return os;
+}
 int main()
 try {
 	Name_pairs init_list;
 	init_list.read_names();
 	init_list.read_ages();
-	init_list.print();
+	cout << init_list;
 	init_list.sort();
 	cout << "Post sort():\n";
-	init_list.print();
+	cout << init_list;
 
 	keep_window_open();
 	return 0;
