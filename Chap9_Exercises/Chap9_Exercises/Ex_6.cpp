@@ -1,19 +1,16 @@
 /*
 	Evan Holloway	May 2023
 
-	design and implement a Book class, such as you can imagine as part of software for a library. 
-	Class Book should have members for the ISBN, title, author, and copyright date. Also store data 
-	on whether or not the book is checked out. Create functions for returning those data values. 
-	Create functions for checking a book in and out. Do simple validation of data entered into a Book; 
-	for example, accept ISBNs only of the form n-n-n-x where n is an integer and x is a digit or a letter.
-	Store an ISBN as a string.
+	Add operators for the Book class. Have the == operator check whether the ISBN numbers are the same
+	for two books. Have != also compare the ISBN numbers. Have a << print out the title, author, and ISBN
+	on separate lines.
 */
 
 #include "../../std_lib_facilities.h"
 #include "Chrono.h"
 
 class Book {
-	class Invalid{};
+	class Invalid {};
 
 	string title;
 	string author;
@@ -27,16 +24,30 @@ class Book {
 
 	}
 
-	public:
-		string get_title();
-		string get_author();
-		string get_ISBN();
-		Chrono::Date get_copyright();
-		bool is_checked();
-		void check();
+public:
+	string get_title() const;
+	string get_author() const;
+	string get_ISBN() const;
+	Chrono::Date get_copyright();
+	bool is_checked();
+	void check();
 };
 
 bool valid_ISBN(string);
+
+bool operator==(const Book& book0, const Book& book1) {
+	return (book0.get_ISBN() == book1.get_ISBN()) ? true : false;
+}
+
+bool operator!=(const Book& book0, const Book& book1) {
+	return (book0.get_ISBN() != book1.get_ISBN()) ? true : false;
+}
+
+ostream& operator<<(ostream& os, const Book& book0) {
+	return os << "title: " << book0.get_title() << '\n'
+				<< "author: " << book0.get_author() << '\n'
+				<< "ISBN: " << book0.get_ISBN() << '\n';
+}
 
 int main()
 try {
@@ -58,30 +69,30 @@ catch (...) {
 Book::Book(string tit, string auth, string in_ISBN, Chrono::Date copy, bool check)
 	: title(tit), author(auth), ISBN(in_ISBN), copyright(copy), checked(check)
 {
-	if(!valid_ISBN(in_ISBN)) throw Invalid{};
+	if (!valid_ISBN(in_ISBN)) throw Invalid{};
 }
 
 bool valid_ISBN(string in)
 {
-	if(in.size() > 4) return false;
+	if (in.size() > 4) return false;
 
 	for (int i = 0; i < in.size(); i++) {
 		if (i == in.size()) {
-			if(!isalpha(in[i]) || isdigit(in[i])) return false;
+			if (!isalpha(in[i]) || isdigit(in[i])) return false;
 		}
-		if(in[i] < 0 || isalpha(in[i])) return false;
+		if (in[i] < 0 || isalpha(in[i])) return false;
 	}
 }
 
-string Book::get_title() {
+string Book::get_title() const {
 	return title;
 }
 
-string Book::get_author() {
+string Book::get_author() const {
 	return author;
 }
 
-string Book::get_ISBN() {
+string Book::get_ISBN() const {
 	return ISBN;
 }
 
@@ -95,7 +106,7 @@ bool Book::is_checked() {
 }
 
 void Book::check() {
-	if(checked == false) checked = true;
+	if (checked == false) checked = true;
 	else {
 		cout << "This book is already checked out, come again later\n";
 	}
