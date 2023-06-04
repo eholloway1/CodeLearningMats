@@ -26,13 +26,13 @@ namespace Chrono {
 		int d;
 	};
 	bool is_date(int y, Month m, int d);  // true for valid date
-	bool leapyear(int y);           // true if y is a leap year
+	//bool leapyear(int y);           // true if y is a leap year
 	bool operator==(const Date& a, const Date& b);
 	bool operator!=(const Date& a, const Date& b);
 	ostream& operator<<(ostream& os, const Date& d);
 	istream& operator>>(istream& is, Date& dd);
 	//Day day_of_week(const Date& d);            // day of week of d
 	//Date next_Sunday(const Date d);            // next Sunday after d
-	Date next_weekday(const Date& d);      // next weekday after d
+	//Date next_weekday(const Date& d);      // next weekday after d
 }                                              // Chrono
 

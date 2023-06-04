@@ -30,10 +30,10 @@ namespace Chrono {
 	}
 	void Date::add_year(int n)
 	{
-		if (m == Month::feb && d == 29 && !leapyear(y + n)) {             // beware of leap years!
-			m = Month::mar;                                        // use March 1 instead of February 29
-			d = 1;
-		}
+		//if (m == Month::feb && d == 29 && !leapyear(y + n)) {             // beware of leap years!
+		//	m = Month::mar;                                        // use March 1 instead of February 29
+		//	d = 1;
+		//}
 		y += n;
 	}
 	// helper functions:
@@ -44,9 +44,9 @@ namespace Chrono {
 		if (m < Month::jan || Month::dec < m) return false;
 		int days_in_month = 31;                  // most months have 31 days
 		switch (m) {
-		case Month::feb:                              // the length of February varies
-			days_in_month = (leapyear(y)) ? 29 : 28;
-			break;
+		//case Month::feb:                              // the length of February varies
+		//	days_in_month = (leapyear(y)) ? 29 : 28;
+		//	break;
 		case Month::apr: case Month::jun: case Month::sep: case Month::nov:
 			days_in_month = 30;               // the rest have 30 days
 			break;
@@ -54,10 +54,10 @@ namespace Chrono {
 		if (days_in_month < d) return false;
 		return true;
 	}
-	bool leapyear(int y)
-	{
-		// see exercise 10
-	}
+	//bool leapyear(int y)
+	//{
+	//	// see exercise 10
+	//}
 	bool operator==(const Date& a, const Date& b)
 	{
 		return a.year() == b.year()
@@ -90,17 +90,17 @@ namespace Chrono {
 	enum class Day {
 		sunday, monday, tuesday, wednesday, thursday, friday, saturday
 	};
-	Day day_of_week(const Date& d)
-	{
-		// . . .
-	}
-	Date next_Sunday(const Date& d)
-	{
+	//Day day_of_week(const Date& d)
+	//{
+	//	 //. . .
+	//}
+	//Date next_Sunday(const Date& d)
+	//{
 
-		// ...
-	}
-	Date next_weekday(const Date& d)
-	{
-		// . . .
-	}
+	//	 //...
+	//}
+	//Date next_weekday(const Date& d)
+	//{
+	//	 //. . .
+	//}
 }        // Chrono

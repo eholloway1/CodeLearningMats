@@ -21,11 +21,7 @@ class Book {
 	Chrono::Date copyright;
 	bool checked;
 
-	Book(string tit, string auth, string in_ISBN, Chrono::Date copy, bool check)
-		: title(tit), author(auth), ISBN(in_ISBN), copyright(copy), checked(check)
-	{
-
-	}
+	Book(string tit, string auth, string in_ISBN, Chrono::Date copy, bool check);
 
 	public:
 		string get_title();
@@ -40,7 +36,7 @@ bool valid_ISBN(string);
 
 int main()
 try {
-
+	
 	keep_window_open();
 	return 0;
 }
@@ -71,6 +67,7 @@ bool valid_ISBN(string in)
 		}
 		if(in[i] < 0 || isalpha(in[i])) return false;
 	}
+	return true;
 }
 
 string Book::get_title() {
