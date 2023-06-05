@@ -13,7 +13,6 @@
 #include "Chrono.h"
 
 class Book {
-	class Invalid{};
 
 	string title;
 	string author;
@@ -21,22 +20,26 @@ class Book {
 	Chrono::Date copyright;
 	bool checked;
 
-	Book(string tit, string auth, string in_ISBN, Chrono::Date copy, bool check);
-
 	public:
-		string get_title();
-		string get_author();
-		string get_ISBN();
-		Chrono::Date get_copyright();
-		bool is_checked();
+		class Invalid {};
+		Book(string tit, string auth, string in_ISBN, Chrono::Date copy, bool check);
+		string get_title() const;
+		string get_author() const;
+		string get_ISBN() const;
+		Chrono::Date get_copyright() const;
+		bool is_checked() const;
 		void check();
 };
 
 bool valid_ISBN(string);
 
+ostream& operator<<(ostream& os, const Book&);
+
 int main()
 try {
-	
+	Book b1{"dicks", "Jeany", "142 25 86 A", Chrono::Date{1984, Chrono::Month::mar, 20}, false};
+	cout << b1;
+
 	keep_window_open();
 	return 0;
 }
@@ -45,10 +48,30 @@ catch (exception& e) {
 	keep_window_open();
 	return 1;
 }
+catch (Book::Invalid& e)
+{
+	cerr << "Invalid book construction\n";
+	keep_window_open();
+	return 3;
+}
+catch (Chrono::Date::Invalid& e)
+{
+	cerr << "Invalid Date construction\n";
+	keep_window_open();
+	return 4;
+}
 catch (...) {
 	cerr << "Uknown error\n";
 	keep_window_open();
 	return 2;
+}
+
+ostream& operator<<(ostream& os, const Book& in) {
+	return os << "title: " << in.get_title() << " "
+				<< "Author: " << in.get_author() << " "
+				<< "ISBN: " << in.get_ISBN() << " "
+				<< "copyright date: " << in.get_copyright() << " "
+				<< "is checked: " << in.is_checked() << '\n';
 }
 
 Book::Book(string tit, string auth, string in_ISBN, Chrono::Date copy, bool check)
@@ -59,35 +82,34 @@ Book::Book(string tit, string auth, string in_ISBN, Chrono::Date copy, bool chec
 
 bool valid_ISBN(string in)
 {
-	if(in.size() > 4) return false;
 
-	for (int i = 0; i < in.size(); i++) {
-		if (i == in.size()) {
-			if(!isalpha(in[i]) || isdigit(in[i])) return false;
-		}
-		if(in[i] < 0 || isalpha(in[i])) return false;
-	}
+	//for (int i = 0; i < in.size(); i++) {
+	//	if (i == in.size()) {
+	//		if(!isalpha(in[i]) || isdigit(in[i])) return false;
+	//	}
+	//	if(in[i] < 0 || isalpha(in[i])) return false;
+	//}
 	return true;
 }
 
-string Book::get_title() {
+string Book::get_title() const{
 	return title;
 }
 
-string Book::get_author() {
+string Book::get_author() const{
 	return author;
 }
 
-string Book::get_ISBN() {
+string Book::get_ISBN() const{
 	return ISBN;
 }
 
-Chrono::Date Book::get_copyright() {
+Chrono::Date Book::get_copyright() const{
 	cout << "Date: " << copyright << '\n';
 	return copyright;
 }
 
-bool Book::is_checked() {
+bool Book::is_checked() const{
 	return checked;
 }
 
