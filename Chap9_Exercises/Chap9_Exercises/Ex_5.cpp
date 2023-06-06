@@ -37,8 +37,11 @@ ostream& operator<<(ostream& os, const Book&);
 
 int main()
 try {
-	Book b1{"dicks", "Jeany", "142 25 86 A", Chrono::Date{1984, Chrono::Month::mar, 20}, false};
+	Book b1{"dicks", "Jeany", "142-25-86-A", Chrono::Date{1984, Chrono::Month::mar, 20}, false};
 	cout << b1;
+
+	Book bad_Book{"bums", "Kramer", "123-4-B-!", Chrono::Date{2003, Chrono::Month::jan, 2}, true};
+	cout << bad_Book;
 
 	keep_window_open();
 	return 0;
@@ -67,11 +70,14 @@ catch (...) {
 }
 
 ostream& operator<<(ostream& os, const Book& in) {
-	return os << "title: " << in.get_title() << " "
+	os << "title: " << in.get_title() << " "
 				<< "Author: " << in.get_author() << " "
 				<< "ISBN: " << in.get_ISBN() << " "
 				<< "copyright date: " << in.get_copyright() << " "
-				<< "is checked: " << in.is_checked() << '\n';
+				<< "is checked: ";
+	(in.is_checked()) ? os << "yes\n" : os << "no\n";
+	return os;
+	
 }
 
 Book::Book(string tit, string auth, string in_ISBN, Chrono::Date copy, bool check)
@@ -82,13 +88,28 @@ Book::Book(string tit, string auth, string in_ISBN, Chrono::Date copy, bool chec
 
 bool valid_ISBN(string in)
 {
-
-	//for (int i = 0; i < in.size(); i++) {
-	//	if (i == in.size()) {
-	//		if(!isalpha(in[i]) || isdigit(in[i])) return false;
-	//	}
-	//	if(in[i] < 0 || isalpha(in[i])) return false;
-	//}
+	string hold = "";
+	int j = 0;
+	for (int i = 0; i < in.size();) {
+		while (in[i] != '-') {
+			hold += in[i];
+			i++;
+		}
+		i++;
+		if (i != in.size()) {
+			for (int k = 0; k < hold.size(); k++){
+				if(!isdigit(hold[k])) return false;
+			}
+		}
+		else {
+			for (int k = 0; k < hold.size(); k++) {
+				if(!isdigit(hold[k]) || !isalpha(hold[k])) return false;
+			}
+		}
+		j = 0;
+		hold = "";
+	}
+	
 	return true;
 }
 
@@ -105,7 +126,7 @@ string Book::get_ISBN() const{
 }
 
 Chrono::Date Book::get_copyright() const{
-	cout << "Date: " << copyright << '\n';
+	//cout << "Date: " << copyright << '\n';
 	return copyright;
 }
 
